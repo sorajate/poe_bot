@@ -1357,12 +1357,18 @@ class MapDevice_Poe2(MapDevice):
       map_obj = next( (m for m in self.avaliable_maps if m.id == orig_id))
       print(map_obj.raw)
       poe_bot.ui.inventory.update()
+<<<<<<< HEAD
       # ignore the inventory panel if it's opened
+=======
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
       x_center = poe_bot.game_window.center_point[0]
       borders = poe_bot.game_window.borders[:]
       borders[2] = 80
       if poe_bot.ui.inventory.is_opened:
+<<<<<<< HEAD
         print('inventory is opened, different borders and roi')
+=======
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
         borders[1] = 545
         x_center = int(x_center)/2
       roi_borders = [
@@ -1377,7 +1383,13 @@ class MapDevice_Poe2(MapDevice):
         break
       print(f"map_obj.screen_pos {map_obj.screen_pos.toList()}")
       drag_from = poe_bot.game_window.convertPosXY(map_obj.screen_pos.x, map_obj.screen_pos.y, custom_borders=borders)
+<<<<<<< HEAD
 
+=======
+      # ignore the inventory panel if it's opened
+      if poe_bot.ui.inventory.is_opened == True:
+        print('inventory is opened, different borders and roi')
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
       drag_to = poe_bot.game_window.convertPosXY(x_center, poe_bot.game_window.center_point[1], custom_borders=borders)
       poe_bot.bot_controls.mouse.drag(drag_from, drag_to)
       time.sleep(random.uniform(0.15, 0.35))
@@ -1554,6 +1566,7 @@ class RitualUi(PoeBotComponent):
       self.defer_button_text = data["d_b"]
       self.defer_button = UiElement(self.poe_bot, Posx1x2y1y2(*data["d_b_sz"]))
       self.items = list(map(lambda i_raw: Item(poe_bot=self.poe_bot, item_raw=i_raw),data["i"]))
+<<<<<<< HEAD
 class AuctionUi(PoeBotComponent):
   def __init__(self, poe_bot):
     super().__init__(poe_bot)
@@ -1566,6 +1579,9 @@ class AuctionUi(PoeBotComponent):
     self.reset()
     self.raw = data
 
+=======
+    
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
 x_offset = 12
 y_offset = 90
 def assignStashItemPositions(item):

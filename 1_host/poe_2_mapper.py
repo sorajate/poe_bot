@@ -8,8 +8,11 @@ import time
 import random
 import sys
 from ast import literal_eval
+<<<<<<< HEAD
 from math import dist
 
+=======
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
 
 from utils.gamehelper import Poe2Bot
 from typing import List, Type
@@ -49,9 +52,13 @@ def openPortal():
 
 MAPS_TO_IGNORE = [
   "MapCrypt_NoBoss", # activators
+<<<<<<< HEAD
   "MapCrypt", # activators
   "MapAugury_NoBoss", # activators
   "MapAugury", # activators
+=======
+  "MapAugury_NoBoss", # activators
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
   "MapFortress", #TODO class MapFortress boss activators
   "MapLostTowers" # class MapLostTowers multi layerd location
 ]
@@ -70,7 +77,11 @@ class MapperSettings:
   default_discovery_percent = 0.93 # % for which itll explore the area
   discovery_percent = default_discovery_percent # % for which itll explore the area
   
+<<<<<<< HEAD
   prefered_tier:str = "15+"
+=======
+  prefered_tier = None
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
 
   #TODO keep consumables same as maps.ipynb
   keep_consumables = []
@@ -93,7 +104,10 @@ class MapperSettings:
   do_essences = True
   
   do_rituals = False
+<<<<<<< HEAD
   do_rituals_buyout_function = lambda *agrs, **kwargs: True
+=======
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
 
   def __init__(self, config:dict) -> None:
     for key, value in config.items():
@@ -136,7 +150,10 @@ class Mapper2(PoeBotComponent):
     open map devic
     activate map
     '''
+<<<<<<< HEAD
     poe_bot:Poe2Bot = self.poe_bot
+=======
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
     poe_bot.ui.inventory.update()
     maps_in_inventory = list(filter(lambda i: i.map_tier, poe_bot.ui.inventory.items))
     maps_in_inventory.sort(key=lambda i: i.map_tier, reverse=prefer_high_tier)
@@ -167,6 +184,7 @@ class Mapper2(PoeBotComponent):
     updated_map_obj.click()
     time.sleep(random.uniform(0.15, 0.35))
     poe_bot.ui.map_device.update()
+<<<<<<< HEAD
 
     if poe_bot.ui.map_device.place_map_window_opened != True:
       print(f'[Mapper.activateMap] dropdown didnt open, clicking on nearby element and clicking back again')
@@ -190,15 +208,30 @@ class Mapper2(PoeBotComponent):
       # updated_map_obj.click()
       # time.sleep(random.uniform(0.15, 0.35))
       # poe_bot.ui.map_device.update()
+=======
+    if poe_bot.ui.map_device.place_map_window_opened != True:
+      print(f'[Mapper.activateMap] dropdown didnt open')
+      pos_x, pos_y = poe_bot.game_window.convertPosXY(100, 100)
+      poe_bot.bot_controls.mouse.setPosSmooth(pos_x, pos_y)
+      time.sleep(random.uniform(0.15, 0.35))
+      poe_bot.ui.map_device.update()
+      updated_map_obj = next( (m for m in poe_bot.ui.map_device.avaliable_maps if m.id == map_obj.id))
+      updated_map_obj.click()
+      time.sleep(random.uniform(0.15, 0.35))
+      poe_bot.ui.map_device.update()
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
       if poe_bot.ui.map_device.place_map_window_opened == False:
         print(f'[Mapper.activateMap] seems like map device bug')
         raise Exception("[Mapper.activateMap] cant open dropdown for map device #TODO click on other map element in roi and try again?")
         poe_bot.raiseLongSleepException("[Mapper.activateMap] cant open dropdown for map device #?")
     poe_bot.ui.map_device.update()
+<<<<<<< HEAD
     
     
     
     
+=======
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
     print("[Mapper.activateMap] dropdown opened")
     if len(poe_bot.ui.map_device.place_map_window_items) != 0:
       poe_bot.raiseLongSleepException('[Mapper.activateMap] len(poe_bot.ui.map_device.place_map_window_items) != 0 #TODO remove all, test below')
@@ -317,7 +350,11 @@ class Mapper2(PoeBotComponent):
           try:
             poe_bot.refreshInstanceData()
           except Exception as e:
+<<<<<<< HEAD
             if e.__str__() in ["area is loading on partial request", "Area changed but refreshInstanceData was called before refreshAll"]:
+=======
+            if e.__str__() == 'area is loading on partial request':
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
               break
         area_changed = False
         while area_changed != True:
@@ -526,7 +563,10 @@ class Mapper2(PoeBotComponent):
       time_now = time.time()
 
     # check if we did 3 of 3 or 4of4 rituals, if true, defer\whatever items
+<<<<<<< HEAD
     self.settings.do_rituals_buyout_function()
+=======
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
 
     poe_bot.refreshInstanceData()
     #TODO poe1
@@ -590,7 +630,10 @@ class MapArea(PoeBotComponent):
   #TODO rewrite some breaks to return, merge %of discovery with mapper.isMapCompleted 
   def complete(self):
     mapper = self.mapper
+<<<<<<< HEAD
     poe_bot = self.poe_bot
+=======
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
     
 
     self.started_running_map_at = time.time()
@@ -720,6 +763,13 @@ class MapArea(PoeBotComponent):
 
         # if we arrived to discovery point and nothing happened
         if result is None:
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
           while True:
             if len(discovery_points) == 0:
               if mapper.settings.boss_rush is True or mapper.settings.discovery_percent > mapper.settings.default_discovery_percent:
@@ -827,8 +877,13 @@ class MapFortress(MapArea):
   # "Metadata/Terrain/Gallows/Act2/2_2/Objects/BossChainAnchor_3"
   boss_activators_paths = ["Metadata/Terrain/Gallows/Act2/2_2/Objects/BossChainAnchor"] 
   # or list(map(lambda i: f"Metadata/Terrain/Gallows/Act2/2_2/Objects/BossChainAnchor_{i}"), [1,2,3])
+<<<<<<< HEAD
 class MapLostTowers(MapArea):
   # init, change strategy to boss rush
+=======
+
+class MapLostTowers(MapArea):
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
   pass
 MAP_AREAS_BY_KEYS_DICT = {
   "MapLostTowers": MapLostTowers, 
@@ -845,11 +900,19 @@ alch_map_if_possible = True
 
 
 
+<<<<<<< HEAD
 # In[ ]:
 
 
 default_config = {
   "REMOTE_IP": '172.24.30.136', # z2
+=======
+# In[4]:
+
+
+default_config = {
+  "REMOTE_IP": '172.23.107.65', # z2
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
   "unique_id": "poe_2_test",
   "build": "EaBallistasEle",
   "password": None,
@@ -881,6 +944,13 @@ for key in default_config.keys():
 
 print(f'config to run {config}')
 
+<<<<<<< HEAD
+=======
+
+# In[5]:
+
+
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
 REMOTE_IP = config['REMOTE_IP'] # REMOTE_IP
 UNIQUE_ID = config['unique_id'] # unique id
 MAX_LVL = config.get('max_lvl')
@@ -891,16 +961,30 @@ force_reset_temp = config['force_reset_temp']
 print(f'running aqueduct using: REMOTE_IP: {REMOTE_IP} unique_id: {UNIQUE_ID} max_lvl: {MAX_LVL} chromatics_recipe: {CHROMATICS_RECIPE} force_reset_temp: {force_reset_temp}')
 
 
+<<<<<<< HEAD
 # In[ ]:
+=======
+# In[6]:
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
 
 
 poe_bot = Poe2Bot(unique_id = UNIQUE_ID, remote_ip = REMOTE_IP, password=password)
 poe_bot.refreshAll()
 # poe_bot.game_data.terrain.getCurrentlyPassableArea()
+<<<<<<< HEAD
+=======
+
+
+
+# In[7]:
+
+
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
 # TODO move it to poe_bot.refreshAll() refreshed_data["c_t"] ## "c_t":0 - mouse || "c_t":1 - wasd
 poe_bot.mover.setMoveType('wasd')
 
 
+<<<<<<< HEAD
 # In[ ]:
 
 
@@ -917,34 +1001,67 @@ poe_bot.mover.setMoveType('wasd')
 
 from utils.combat import PathfinderPoisonConc2
 poe_bot.combat_module.build = PathfinderPoisonConc2(poe_bot=poe_bot)
+=======
+# In[8]:
+
+
+# set up build
+from utils.combat import PathfinderPoisonConc2
+from utils.combat import InfernalistZoomancer
+from utils.combat import GenericBuild2
+from utils.combat import GenericBuild2Cautious
+
+# poe_bot.combat_module.build = InfernalistZoomancer(poe_bot=poe_bot)
+poe_bot.combat_module.build = PathfinderPoisonConc2(poe_bot=poe_bot)
+# poe_bot.combat_module.build = GenericBuild2(poe_bot=poe_bot)
+# poe_bot.combat_module.build = GenericBuild2Cautious(poe_bot=poe_bot)
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
 poe_bot.combat_module.build.auto_flasks.life_flask_recovers_es = True
 poe_bot.combat_module.build.auto_flasks.hp_thresh = 0.70
 
 
 
+<<<<<<< HEAD
 # In[8]:
+=======
+# In[9]:
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
 
 
 # default mover function
 poe_bot.mover.default_continue_function = poe_bot.combat_module.build.usualRoutine
 
 
+<<<<<<< HEAD
 # In[ ]:
+=======
+# In[10]:
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
 
 
 mapper_settings = MapperSettings({})
 # adjust mapper settings below
 mapper_settings.do_rituals = True
+<<<<<<< HEAD
 # mapper_settings.do_rituals_buyout_function = 
 
 
 # In[ ]:
+=======
+
+
+# In[11]:
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
 
 
 mapper = Mapper2(poe_bot=poe_bot, settings = mapper_settings)
 
 
+<<<<<<< HEAD
 # In[11]:
+=======
+# In[12]:
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
 
 
 # set up loot filter
@@ -977,6 +1094,7 @@ def isItemHasPickableKey(item_label:PickableItemLabel):
 if mapper.settings.waystone_upgrade_to_rare:
   ARTS_TO_PICK.append("Art/2DItems/Currency/CurrencyUpgradeToRare.dds")
 
+<<<<<<< HEAD
 # remove line below in case you want it to pick ALL items
 poe_bot.loot_picker.loot_filter.special_rules = [isItemHasPickableKey]
 
@@ -985,6 +1103,17 @@ poe_bot.loot_picker.loot_filter.special_rules = [isItemHasPickableKey]
 
 
 #TODO make it possible to wrap it into while loop, if ok, move whole mapper to utils/mapper2.py
+=======
+# remove line below in case you want it to pick all items
+poe_bot.loot_picker.loot_filter.special_rules = [isItemHasPickableKey]
+
+
+# In[13]:
+
+
+#TODO make it possible to wrap it into while loop
+
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
 mapper.run()
 
 
@@ -1262,8 +1391,12 @@ waystone_tiers_sorted = list(waystones_by_tier.keys())
 waystone_tiers_sorted.sort()
 
 collected_items_count = 0
+<<<<<<< HEAD
 poe_bot.ui.inventory.update()
 max_items_can_get = len(poe_bot.ui.inventory.getEmptySlots())
+=======
+max_items_can_get = 60
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
 for k in waystone_tiers_sorted:
   waystones_amount = len(waystones_by_tier[k])
   if waystones_amount // 3 == 0:
@@ -1305,6 +1438,7 @@ for item in interesting_items:
   # do something with them, defer, reroll, buyout, whatever
 
 
+<<<<<<< HEAD
 
 # In[ ]:
 
@@ -1394,3 +1528,5 @@ if poe_bot.ui.map_device.place_map_window_opened != True:
     poe_bot.raiseLongSleepException("[Mapper.activateMap] cant open dropdown for map device #?")
 poe_bot.ui.map_device.update()
 
+=======
+>>>>>>> fea30d6ca50312c98f95e2cc6eb260d9fb58fb85
