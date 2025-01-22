@@ -378,9 +378,12 @@ public class ShareData : BaseSettingsPlugin<ShareDataSettings>
                 request_type = "full";
             } catch (Exception ex){}
             DebugWindow.LogMsg(request_type);
-            var response = getData(request_type);
-            DebugWindow.LogMsg("sending response");
-            return Newtonsoft.Json.JsonConvert.SerializeObject(response);
+            try{
+                var response = getData(request_type);
+                return Newtonsoft.Json.JsonConvert.SerializeObject(response);
+            } catch (Exception ex){
+                DebugWindow.LogMsg($"response getIncursionUi {ex}");
+            }
         } else if (request.Url.AbsolutePath == "/getLocationOnScreen"){
             int x = int.Parse(request.RawUrl.Split(new [] { "x=" }, StringSplitOptions.None)[1].Split(new [] { "&" }, StringSplitOptions.None)[0]);
             int y = int.Parse(request.RawUrl.Split(new [] { "y=" }, StringSplitOptions.None)[1].Split(new [] { "&" }, StringSplitOptions.None)[0]);
